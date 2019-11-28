@@ -1,0 +1,6 @@
+<launch>
+    <node name="e2e_drive" pkg="e2e_usv" type="drive.py" output="screen">
+    <param name="weights_path" type="str" value="$(find E2E_USV)/checkpoints/End_to_end_USV_model_46.h5" />
+    <param name="batch_size" type="int" value="8" />
+    </node>
+</launch>
