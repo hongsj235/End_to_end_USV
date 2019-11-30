@@ -30,12 +30,12 @@ ckptroot = "/home/seungjo/catkin_ws/src/e2e_usv/checkpoints/"
 # hyper-parameters
 lr = 1e-4
 weight_decay = 1e-5
-batch_size = 10
+batch_size = 16
 num_workers = 4
-test_size = 0.8
+test_size = 0.95
 shuffle = True
 
-epochs = 40
+epochs = 50
 start_epoch = 0
 resume = False
 
@@ -51,9 +51,8 @@ trainloader, validationloader = E2Edataset.data_loader(dataroot, trainset, valse
 model = E2Emodel.model()
 
 # Define optimizer and criterion
-optimizer = optim.Adam(model.parameters(),
-                       lr=lr,
-                       weight_decay=weight_decay)
+optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+
 criterion = nn.MSELoss()
 
 # learning rate scheduler
@@ -64,18 +63,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print('device is: ', device)
 
 # Preparing for loss graph visualization
-t_loss = []
-v_loss = []
-
-# Resume training
-# if resume:
-#     print("==> Loading checkpoint ...")
-#     checkpoint = torch.load("../input/pretrainedmodels/both-nvidia-model-61.h5",
-#                             map_location=lambda storage, loc: storage)
-#     start_epoch = checkpoint['epoch']
-#     model.load_state_dict(checkpoint['state_dict'])
-#     optimizer.load_state_dict(checkpoint['optimizer'])
-#     scheduler.load_state_dict(checkpoint['scheduler'])
+f = open('/home/seungjo/catkin_ws/src/e2e_usv/loss.txt','w')
 
 # 5: Train and validate network and save checkpoints
 # - for loop 
@@ -157,7 +145,8 @@ class Trainer(object):
                     train_loss += loss.data.item()
                 # t_loss.append(train_loss)
                 if local_batch % 100 == 0:
-                    print("Training Epoch: {} | Loss: {}".format(epoch, train_loss / (local_batch + 1)))
+                    print("Training Epoch: {} | Loss: {} | local_batch: {} ".format(epoch, train_loss / (local_batch + 1), local_batch))
+                    f.write("Training Epoch: {} | Loss: {}".format(epoch, train_loss / (local_batch + 1)) +'\n')
 
             # Validation
             self.model.eval()
@@ -187,6 +176,7 @@ class Trainer(object):
                     # v_loss.append(valid_loss)
                     if local_batch % 100 == 0:
                         print("Validation Loss: {}".format(valid_loss / (local_batch + 1)))
+                        f.write("Validation Loss: {}".format(valid_loss / (local_batch + 1)) +'\n')
             print()
             # Save model
             if epoch % 5 == 0 or epoch == self.epochs + self.start_epoch - 1:
@@ -224,7 +214,7 @@ trainer = Trainer(ckptroot,
                   batch_size)
 
 trainer.train()
-
+f.close()
 # 7 : plot(E2Eutil)
 
 

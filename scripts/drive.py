@@ -30,8 +30,8 @@ image_array = None
 flag = 0
 
 
-image_root = '/home/seungjo/e2e_usv/Dataset/'
-batch_size = 1
+image_root = '/home/seungjo/catkin_ws/src/e2e_usv/Dataset/'
+batch_size = 10
 num_workers = 4
 test_size = 0.8
 shuffle = True
@@ -51,8 +51,6 @@ class arg_parser(object):
 #     image_array = cv2.resize(image_array, (360, 640))
 #     return image_array
 
-
-
 def main(args):
 	global validationloader
 	global batch_size
@@ -63,7 +61,7 @@ def main(args):
 	# thrusters = thrust()
 	# rospy.init_node('e2e_drive', anonymous = True)
 	opt = arg_parser()
-	opt.weigts_path = "/home/seungjo/e2e_usv/checkpoints/End_to_end_USV_model_41.pth"
+	opt.weigts_path = "/home/seungjo/catkin_ws/src/e2e_usv/checkpoints/End_to_end_USV_model_50.h5"
 	opt.batch_size = batch_size
 	opt.image_folder = image_root
     
@@ -101,11 +99,11 @@ def main(args):
 				thruster.append([left_thruster, right_thruster])
 
 	# print(thruster)
-	f = open('/home/seungjo/e2e_usv/result.txt', 'w')
+	f = open('/home/seungjo/catkin_ws/src/e2e_usv/result.txt', 'w')
 	for i in range(len(thruster)):
 		left = float(thruster[i][0])
 		right = float(thruster[i][1])
-		f.write(str(valset[i][0]) +' '+str(left)+' '+str(right)+'\n')
+		f.write(str(valset[i][0]) +', '+str(left)+', '+str(right)+'\n')
 	f.close()
 
  #    while not rospy.is_shutdown():

@@ -34,8 +34,7 @@ def augment(current_image, left, right):
 def load_data(data_dir, test_size):
     """Load training data and train validation split"""
     # reads CSV file into a single dataframe variable
-    data_df = pd.read_csv(os.path.join(data_dir, 'data.csv'), 
-                          names=['image', 'left_thruster', 'right_thruster'])
+    data_df = pd.read_csv(os.path.join(data_dir, 'data.csv'), names=['image', 'left_thruster', 'right_thruster'])
 
     # smooth data signal with `savgol_filter`
     data_df["left_thruster"] = signal.savgol_filter(data_df["left_thruster"].values.tolist(), 51, 11)
@@ -57,11 +56,30 @@ class AugmentDataset(data.Dataset):
         imgName, left, right = batch_samples
         img = cv2.imread(imgName)
         img = cv2.resize(img, dsize=(360, 640), interpolation=cv2.INTER_AREA)
-        # if img is None:
-            # print(name)
+        if img is None:
+            print(name)
         # pdb.set_trace()
         if batch_samples[1] != batch_samples[2] : # if left/right thruster value is not same
             img, left, right = augment(img, left, right)
+        # img = self.transform(img)
+        img = img/127.5 - 1.0
+        return (img, left, right)
+      
+    def __len__(self):
+        return len(self.samples)
+
+class Dataset_val(data.Dataset):
+    def __init__(self, samples, transform=None):
+        self.samples = samples
+        self.transform = transform
+
+    def __getitem__(self, index):
+        batch_samples = self.samples[index]
+        imgName, left, right = batch_samples
+        img = cv2.imread(imgName)
+        img = cv2.resize(img, dsize=(360, 640), interpolation=cv2.INTER_AREA)
+        if img is None:
+            print(name)
         # img = self.transform(img)
         img = img/127.5 - 1.0
         return (img, left, right)
@@ -83,7 +101,6 @@ def data_loader(dataroot, trainset, valset, batch_size, shuffle, num_workers):
         trainloader (torch.utils.data.DataLoader): DataLoader for training set
         testloader (torch.utils.data.DataLoader): DataLoader for validation set
     """
-    # transformations = transforms.Compose([transforms.Lambda(lambda x: (x / 127.5) - 1.0)])
     transformations = None
 
     # Load training data and validation data
@@ -93,7 +110,7 @@ def data_loader(dataroot, trainset, valset, batch_size, shuffle, num_workers):
                              shuffle=shuffle,
                              num_workers=num_workers)
 
-    validation_set = AugmentDataset(valset, transformations)
+    validation_set = Dataset_val(valset, transformations)
     valloader = DataLoader(validation_set,
                            batch_size=batch_size,
                            shuffle=shuffle,
