@@ -25,7 +25,7 @@ Consists of image folder and 'data.csv'. In 'data.csv', there is the list of dat
 
 ## Usage
 
-Download this repo. It is made for ROS package. You should download in your ROS workspace. In common case, the name of ROS work space is 'catkin_ws'
+Download this repo. It is made for ROS package. You should download in your ROS workspace. In common case, the name of ROS work space is 'catkin_ws'.
 
 ```
 git clone https://github.com/hongsj235/End_to_end_USV.git
@@ -44,10 +44,37 @@ python3 train.py
 
 ### Evaluation Test
 
-> You can evaluate this model in a two ways, 
+> After training process, you can evaluate trained model in a two ways. First, the real-time simulation by using ROS Gazebo. Second, validation from the valid data. Compare the thruster value from the model with the value I got from joystick. 
 
-Training usage is shown as follows:
+### 1. Real-time simulation
 ```
-python3 train.py
+~/catkin_ws$ catkin_make                              # Build ROS packages
+~/catkin_ws$ roslaunch vrx_gazebo e2e.launch          # Operate WAM-V simulator
+~/catkin_ws$ roslaunch e2e_usv drive_ros.launch       # Operate End-to-end learning
 ```
 
+### 2. Validation data
+
+You need to change weights_path and image_root of your PC.
+After change the roots, enter the follows:
+```
+python drive.py
+```
+Then, you can get 'result.txt' which contains training loss and validation loss every epoch.
+
+### 3. Plot the loss graph
+```
+python plot.py
+```
+
+## Future work
+
+-[] Make the dataset more robust and reduce training errors created from ships characteristic
+-[] Get more training dataset to train the model in various environment
+-[] Try another structure to operate thrusters by adding velocity and angular node(Control part)
+-[] If it works well in simulator, try in a real world
+
+## References
+
+[1] Nvidia research, [End to End Learning for Self-Driving Cars](https://arxiv.org/pdf/1604.07316v1.pdf)  
+[2] Self-driving car simulator developed by [Udacity](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013) with Unity  
