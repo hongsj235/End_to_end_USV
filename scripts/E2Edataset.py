@@ -34,10 +34,6 @@ def load_data(data_dir, test_size):
     # reads CSV file into a single dataframe variable
     data_df = pd.read_csv(os.path.join(data_dir, 'data.csv'), names=['image', 'left_thruster', 'right_thruster'])
 
-    # smooth data signal with `savgol_filter`
-    data_df["left_thruster"] = signal.savgol_filter(data_df["left_thruster"].values.tolist(), 51, 11)
-    data_df["right_thruster"] = signal.savgol_filter(data_df["right_thruster"].values.tolist(), 51, 11)
-
     # Divide the data into training set and validation set
     train_len = int(test_size * data_df.shape[0])
     valid_len = data_df.shape[0] - train_len
