@@ -13,6 +13,7 @@ import sys
 import torch
 import E2Edataset
 import E2Emodel
+import timeit
 
 # Parameters setting
 image_array = None
@@ -50,7 +51,10 @@ def main(args):
 		imgs, lefts, rights = E2Edataset.toDevice(imgs, lefts, rights, device)
 
 		with torch.no_grad():
+			start = timeit.default_timer()
 			result = model(imgs)
+			stop = timeit.default_timer()
+			print(stop - start)
 			# print(result)
 			left_thruster = result[0][0]
 			right_thruster = result[0][1]
