@@ -8,25 +8,14 @@ Created on Wed Nov 13 15:43:54 2019
 
 #parsing command line arguments
 #!/usr/bin/env python3
-import os
 import sys
-import time
 import rospy
 import numpy as np
 import cv2
 import torch
-import E2Edataset
 import E2Emodel
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import torch.nn.functional as F
 
-from torchvision import datasets, transforms
-from torch import nn
-from torch import optim
-from torch.utils.data import DataLoader
-from torchvision import datasets
-from sensor_msgs.msg import CompressedImage, Image
+from sensor_msgs.msg import CompressedImage
 from std_msgs.msg import Float32
 
 image_array = np.zeros([1,720,1280,3], dtype="uint8")
@@ -80,12 +69,6 @@ def main(args):
         publish_array = image_array.copy()
         publish_array = torch.FloatTensor(publish_array).to(device)
         with torch.no_grad():
-            # for i in range(2):
-            #     print(publish_array)
-            # img_batch = np.zeros([image_array.shape[0], image_array.shape[1], image_array.shape[2], image_array.shape[3]])
-            # for i in range(opt.batch_size):
-            #     image_array=np.concatenate((img_batch, image_array))
-            # Input images to model
             result = model(publish_array)
             left_thruster = float(result[0][0])
             right_thruster = float(result[0][1])

@@ -1,6 +1,4 @@
 import os
-import random
-import csv
 
 imglist = os.listdir('/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/')
 imglist.sort()

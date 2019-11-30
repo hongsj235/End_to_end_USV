@@ -5,8 +5,7 @@ Created on Wed Nov 13 15:48:06 2019
 
 @author: seungjo
 """
-import os 
-import torch
+
 import torch.nn as nn
 
 
@@ -78,45 +77,3 @@ class model(nn.Module):
         output = output.view(output.size(0), -1)
         output = self.linear_layers(output)
         return output
-
-
-
-        # self.conv1 = nn.Conv2d(in_channels=3, out_channels=24, kernel_size=5, padding=1)
-        # self.batchnorm1 = nn.BatchNorm2d(num_features=24)
-        # self.relu = nn.ReLU()
-        # self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        # self.conv2 = nn.Conv2d(in_channels=24, out_channels=36, kernel_size=5, padding=1)
-        # self.conv3 = nn.Conv2d(in_channels=36, out_channels=48, kernel_size=5, padding=1)
-        # self.batchnorm2 = nn.BatchNorm2d(num_features=48)
-        # self.conv4 = nn.Conv2d(in_channels=48, out_channels=64, kernel_size=3, padding=1)
-        # self.conv5 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, padding=1)
-        # self.batchnorm3 = nn.BatchNorm2d(num_features=128)
-        # self.conv6 = nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3, padding=1)
-        # self.fc1 = nn.Linear(in_features=5760, out_features=1024)
-        # self.fc2 = nn.Linear(in_features=1024, out_features=128)
-        # self.fc3 = nn.Linear(in_features=128, out_features=12)
-        # self.fc4 = nn.Linear(in_features=12, out_features=2)
-        # self.dropout = nn.Dropout(p=0.1)
-        # self.dropout_cnn = nn.Dropout2d(p=0.2)
-
-
-
-
-
-        # x = x.view(x.size(0), 3, 360, 640)
-        # x = self.pool(self.relu(self.batchnorm1(self.conv1(x))))
-        # x = self.pool(self.relu(self.conv2(x)))
-        # x = self.pool(self.relu(self.batchnorm2(self.conv3(x))))
-        # x = self.dropout_cnn(x)
-        # x = self.pool(self.relu(self.conv4(x)))
-        # x = self.pool(self.relu(self.batchnorm3(self.conv5(x))))
-        # x = self.dropout_cnn(x)
-        # x = self.pool(self.relu(self.conv6(x)))
-        # x = x.view(x.size(0), -1)
-        # x = self.dropout(x)
-        # x = self.relu(self.fc1(x))
-        # x = self.relu(self.fc2(x))
-        # x = self.relu(self.fc3(x))
-        # x = self.dropout(x)
-        # outputs = self.fc4(x)
-        # return outputs

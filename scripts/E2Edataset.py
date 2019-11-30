@@ -8,10 +8,8 @@ Created on Wed Nov 13 15:48:36 2019
 
 import os 
 import cv2
-import torch
 
 import numpy as np
-import csv
 import pandas as pd
 
 from scipy import signal
@@ -58,11 +56,9 @@ class AugmentDataset(data.Dataset):
         img = cv2.resize(img, dsize=(360, 640), interpolation=cv2.INTER_AREA)
         if img is None:
             print(name)
-        # pdb.set_trace()
-        if batch_samples[1] != batch_samples[2] : # if left/right thruster value is not same
+        if batch_samples[1] != batch_samples[2] :  # if left/right thruster value is not same
             img, left, right = augment(img, left, right)
-        # img = self.transform(img)
-        img = img/127.5 - 1.0
+        img = img/127.5 - 1.0 # Image normalization
         return (img, left, right)
       
     def __len__(self):
@@ -88,32 +84,13 @@ class Dataset_val(data.Dataset):
         return len(self.samples)
 
 def data_loader(dataroot, trainset, valset, batch_size, shuffle, num_workers):
-    """Self-Driving vehicles simulator dataset Loader.
-
-    Args:
-        trainset: training set
-        valset: validation set
-        batch_size: training set input batch size
-        shuffle: whether shuffle during training process
-        num_workers: number of workers in DataLoader
-
-    Returns:
-        trainloader (torch.utils.data.DataLoader): DataLoader for training set
-        testloader (torch.utils.data.DataLoader): DataLoader for validation set
-    """
     transformations = None
 
     # Load training data and validation data
     training_set = AugmentDataset(trainset, transformations)
-    trainloader = DataLoader(training_set,
-                             batch_size=batch_size,
-                             shuffle=shuffle,
-                             num_workers=num_workers)
-
+    trainloader = DataLoader(training_set, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
+    # validation data has no augmented data
     validation_set = Dataset_val(valset, transformations)
-    valloader = DataLoader(validation_set,
-                           batch_size=batch_size,
-                           shuffle=shuffle,
-                           num_workers=num_workers)
+    valloader = DataLoader(validation_set, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
 
     return trainloader, valloader
