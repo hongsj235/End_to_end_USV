@@ -18,11 +18,6 @@ We used Python and Pytorch. To implement this application, other resources and l
     - Simulator world file : Copy 'test.world' file to 'world' folder in 'VRx_gazebo' ROS package.
     - WAM-V model file : Copy 'cs470.urdf.xacro' file to 'urdf' folder in 'wamv_gazebo' ROS package.
 
-## Dataset(다운로드?!)
-
-Consists of image folder and 'data.csv'. In 'data.csv', there is the list of dataset. 
-- Data list : Root of image, left_thruster value, right_thruster value
-
 ## Usage
 
 Download this repo. It is made for ROS package. You should download in your ROS workspace. In common case, the name of ROS work space is 'catkin_ws'.
@@ -31,6 +26,13 @@ Download this repo. It is made for ROS package. You should download in your ROS 
 git clone https://github.com/hongsj235/End_to_end_USV.git
 
 cd catkin_ws/src/e2e_usv/script
+```
+
+You can implement this application using 'drive.py'
+At first, you need to modify Directories('weight_path', 'image_root') and result file root(line 64) to your roots. In the case of Google Colab, you need to mount data.
+
+```
+python drive.py
 ```
 
 ### Training
@@ -69,10 +71,10 @@ python plot.py
 
 ## Future work
 
--[] Make the dataset more robust and reduce training errors created from ships characteristic
--[] Get more training dataset to train the model in various environment
--[] Try another structure to operate thrusters by adding velocity and angular node(Control part)
--[] If it works well in simulator, try in a real world
+- [] Make the dataset more robust and reduce training errors created from ships characteristic
+- [] Get more training dataset to train the model in various environment
+- [] Try another structure to operate thrusters by adding velocity and angular node(Control part)
+- [] If it works well in simulator, try in a real world
 
 ## References
 
