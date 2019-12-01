@@ -68,6 +68,7 @@ class Dataset_val(data.Dataset):
     def __getitem__(self, index):
         batch_samples = self.samples[index]
         imgName, left, right = batch_samples
+        print(imgName)
         img = cv2.imread(imgName)
         img = cv2.resize(img, dsize=(360, 640), interpolation=cv2.INTER_AREA)
         if img is None:

@@ -20,7 +20,7 @@ image_array = None
 flag = 0
 
 weigts_path = "/home/seungjo/catkin_ws/src/e2e_usv/checkpoints/model_obstacle.h5"
-image_root = '/home/seungjo/catkin_ws/src/e2e_usv/Dataset/'
+image_root = '/home/seungjo/catkin_ws/src/e2e_usv/Dataset_ex/'
 batch_size = 1
 num_workers = 4
 test_size = 0.8
@@ -49,18 +49,19 @@ def main(args):
 
 	for local_batch, (imgs, lefts, rights) in enumerate(validationloader):
 		imgs, lefts, rights = E2Edataset.toDevice(imgs, lefts, rights, device)
-
+		total = [imgs, lefts, rights]
+		datas = [total]
 		with torch.no_grad():
-			start = timeit.default_timer()
-			result = model(imgs)
-			stop = timeit.default_timer()
-			print(stop - start)
-			# print(result)
-			left_thruster = result[0][0]
-			right_thruster = result[0][1]
-			thruster.append([left_thruster, right_thruster])
-
-	f = open('/home/seungjo/catkin_ws/src/e2e_usv/result.txt', 'w')
+			for i in datas:
+				imgs, lefts, rights = i
+				start = timeit.default_timer()
+				result = model(imgs)
+				stop = timeit.default_timer()
+				# print(stop - start)  # print the computation time
+				left_thruster = result[0][0]
+				right_thruster = result[0][1]
+				thruster.append([left_thruster, right_thruster])
+	f = open('/home/seungjo/catkin_ws/src/e2e_usv/Dataset_ex/result.txt', 'w')
 	for i in range(len(thruster)):
 		left = float(thruster[i][0])
 		right = float(thruster[i][1])

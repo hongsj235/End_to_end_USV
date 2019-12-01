@@ -1,0 +1,10 @@
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third1_img02993.jpg, 0.9934337735176086, 1.0082796812057495
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third4_img02793.jpg, 0.9703117609024048, 1.0310195684432983
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third4_img06346.jpg, 1.1755397319793701, 0.828158974647522
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/first_img00630.jpg, 0.9648081064224243, 1.034609079360962
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/first_img01110.jpg, 0.9922128915786743, 1.0070935487747192
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third_img05436.jpg, 1.2910401821136475, 0.7099044919013977
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third_img02856.jpg, 1.018800139427185, 0.9845997095108032
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third_img05915.jpg, 1.0088855028152466, 0.9923582077026367
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/third1_img01133.jpg, 0.9922659993171692, 1.007419466972351
+/home/seungjo/catkin_ws/src/e2e_usv/Dataset/image/round_img00836.jpg, 1.0464017391204834, 0.9501107931137085

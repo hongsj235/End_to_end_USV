@@ -16,25 +16,34 @@ sns.set_style("whitegrid")
 training_loss = []
 validation_loss = []
 
-with open("/home/seungjo/catkin_ws/src/e2e_usv/loss.txt") as f:
-    for line in f.readlines():
-        if "Training" in line:
-            training_loss.append(float(line.rstrip().split(": ")[-1]))
-        elif "Validation" in line:
-            validation_loss.append(float(line.rstrip().split(": ")[-1]))
+with open("/home/seungjo/catkin_ws/src/e2e_usv/obstacle/loss.txt") as f:
+	a = f.readlines()
+	for i in range(50):
+		if i == 0:
+			train = a[1]
+			training_loss.append(float(train.rstrip().split(": ")[-1]))
+		else:
+			train = a[2+(22*i)]
+			training_loss.append(float(train.rstrip().split(": ")[-1]))
+
+with open("/home/seungjo/catkin_ws/src/e2e_usv/obstacle/loss.txt") as f:
+	for i in range(50):
+		if i == 0:
+			valid = a[18]
+			validation_loss.append(float(valid.rstrip().split(": ")[-1]))
+		else:
+			valid = a[19+(22*i)]
+			validation_loss.append(float(valid.rstrip().split(": ")[-1]))
 
 training_loss = [float(loss) for loss in training_loss]
 validation_loss = [float(loss) for loss in validation_loss]
 
 training_loss = np.array(training_loss)
 validation_loss = np.array(validation_loss)
-print(len(training_loss))
-print(len(validation_loss))
-
 
 # Plot loss graph
 plt.title("Training Loss vs Validation Loss")
-plt.xlabel("Iterations")
+plt.xlabel("Epoches")
 plt.plot(range(len(training_loss)), training_loss, 'b', label='Training Loss')
 plt.plot(np.linspace(0, len(training_loss), len(validation_loss)), validation_loss, 'g-.', label='Validation Loss')
 plt.legend()
