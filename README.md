@@ -71,10 +71,10 @@ python plot.py
 
 ## Future work
 
-- [] Make the dataset more robust and reduce training errors created from ships characteristic
-- [] Get more training dataset to train the model in various environment
-- [] Try another structure to operate thrusters by adding velocity and angular node(Control part)
-- [] If it works well in simulator, try in a real world
+- Make the dataset more robust and reduce training errors created from ships characteristic
+- Get more training dataset to train the model in various environment
+- Try another structure to operate thrusters by adding velocity and angular node(Control part)
+- If it works well in simulator, try in a real world
 
 ## References
 
