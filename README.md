@@ -46,14 +46,14 @@ python3 train.py
 
 > After training process, you can evaluate trained model in a two ways. First, the real-time simulation by using ROS Gazebo. Second, validation from the valid data. Compare the thruster value from the model with the value I got from joystick. 
 
-### 1. Real-time simulation
+#### 1. Real-time simulation
 ```
 ~/catkin_ws$ catkin_make                              # Build ROS packages
 ~/catkin_ws$ roslaunch vrx_gazebo e2e.launch          # Operate WAM-V simulator
 ~/catkin_ws$ roslaunch e2e_usv drive_ros.launch       # Operate End-to-end learning
 ```
 
-### 2. Validation data
+#### 2. Validation data
 
 You need to change weights_path and image_root of your PC.
 After change the roots, enter the follows:
@@ -62,7 +62,7 @@ python drive.py
 ```
 Then, you can get 'result.txt' which contains training loss and validation loss every epoch.
 
-### 3. Plot the loss graph
+#### 3. Plot the loss graph
 ```
 python plot.py
 ```
