@@ -46,7 +46,7 @@ python3 train.py
 
 ### Evaluation Test
 
-> After training process, you can evaluate trained model in a two ways. First, the real-time simulation by using ROS Gazebo. Second, validation from the valid data. Compare the thruster value from the model with the value I got from joystick. 
+After training process, you can evaluate trained model in a two ways. First, the real-time simulation by using ROS Gazebo. Second, validation from the valid data. Compare the thruster value from the model with the value I got from joystick. 
 
 #### 1. Real-time simulation
 ```
